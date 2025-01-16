@@ -1,12 +1,24 @@
 import sys
-from networksecurity.logging.logger import logging  # Ensure correct path
 
 class NetworkSecurityException(Exception):
     def __init__(self, error_message, error_details: sys):
-        self.error_message = error_message
-        _, _, exc_tb = error_details.exc_info()
-        self.lineno = exc_tb.tb_lineno
-        self.file_name = exc_tb.tb_frame.f_code.co_filename
+        try:
+            exc_type, exc_value, exc_tb = error_details.exc_info()
+            if exc_tb:
+                lineno = exc_tb.tb_lineno
+                file_name = exc_tb.tb_frame.f_code.co_filename
+            else:
+                lineno = "Unknown"
+                file_name = "Unknown"
+
+            self.error_message = (
+                f"Error occurred in python script {file_name} in line number {lineno} "
+                f"with error message: {error_message}"
+            )
+        except Exception as internal_exception:
+            self.error_message = f"Error initializing exception: {internal_exception}"
+
+        super().__init__(self.error_message)
 
     def __str__(self):
-        return f"Error occurred in python script {self.file_name} in line number {self.lineno} with error message {str(self.error_message)}"
+        return self.error_message
