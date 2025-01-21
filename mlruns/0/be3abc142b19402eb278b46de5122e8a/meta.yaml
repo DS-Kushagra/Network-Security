@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Network-Security/mlruns/0/be3abc142b19402eb278b46de5122e8a/artifacts
+end_time: 1737449688480
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: be3abc142b19402eb278b46de5122e8a
+run_name: judicious-stag-602
+run_uuid: be3abc142b19402eb278b46de5122e8a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1737449683222
+status: 3
+tags: []
+user_id: admin
