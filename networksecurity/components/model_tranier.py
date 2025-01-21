@@ -26,8 +26,8 @@ from sklearn.ensemble import (
 import mlflow
 # from urllib.parse import urlparse
 
-# import dagshub
-#dagshub.init(repo_owner='krishnaik06', repo_name='networksecurity', mlflow=True)
+import dagshub
+dagshub.init(repo_owner='DS-Kushagra', repo_name='Network-Security', mlflow=True)
 
 
 class ModelTrainer:
@@ -76,15 +76,15 @@ class ModelTrainer:
                 'subsample':[0.6,0.7,0.75,0.85,0.9],
                 # 'criterion':['squared_error', 'friedman_mse'],
                 # 'max_features':['auto','sqrt','log2'],
-                'n_estimators': [8,16,32,64,128,256]
+                'n_estimators': [8,16,32,128,256]
             },
             "Logistic Regression":{},
             "AdaBoost":{
                 'learning_rate':[.1,.01,.001],
-                'n_estimators': [8,16,32,64,128,256]
+                'n_estimators': [8,16,32,128,256]
             },
             "K-Nearest Neighbors":{
-                'n_neighbors': [3,5,7,9,11,13,15,17,19,21],
+                'n_neighbors': [3,5,7,9,11,13,15,19,21],
                 'weights': ['uniform', 'distance'],
                 'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute'],
             }
@@ -120,7 +120,9 @@ class ModelTrainer:
             os.makedirs(model_dir_path, exist_ok=True)
 
             Network_Model = NetworkModel(preprocessor = preprocessor,model=best_model)
-            save_object(self.model_trainer_config.trained_model_file_path,obj=Network_Model)
+            save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
+
+            save_object("Final_model/model.pkl",best_model)
 
             # Model Trainer Artifact
             model_trainer_artifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,
